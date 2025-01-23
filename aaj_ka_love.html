@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Percentage Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom right, #ff7eb3, #ff758c);
+            color: white;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            transition: all 0.3s ease;
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2.8rem;
+            animation: fadeIn 1s;
+        }
+        input[type="text"] {
+            padding: 15px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            width: 85%;
+            text-align: center;
+        }
+        button {
+            background: rgba(255, 255, 255, 0.3);
+            border: none;
+            padding: 15px 25px;
+            font-size: 1.2rem;
+            color: white;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+        button:hover {
+            background: rgba(255, 255, 255, 0.6);
+            transform: scale(1.1);
+        }
+        .output {
+            margin-top: 20px;
+            font-size: 2rem;
+            display: none;
+            text-align: center;
+            animation: fadeIn 1s;
+        }
+        .sweet-message {
+            margin-top: 20px;
+            font-size: 1.8rem;
+            display: none;
+            animation: fadeIn 1s;
+        }
+        .gif-container {
+            margin-top: 20px;
+            display: none;
+        }
+        .gif-container img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        .additional-info {
+            margin-top: 30px;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 20px;
+            border-radius: 15px;
+            color: #ffe4f2;
+            font-size: 1.2rem;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="calculator">
+        <h1>Love Percentage Calculator</h1>
+        <input type="text" id="yourName" placeholder="Your Name">
+        <input type="text" id="partnerName" placeholder="Partner's Name">
+        <br>
+        <button onclick="calculateLove()">Calculate</button>
+        <div class="output" id="output"></div>
+        <div class="sweet-message" id="sweetMessage"></div>
+        <div class="gif-container" id="gifContainer">
+            <img id="loveGif" src="" alt="Love GIF">
+        </div>
+        <div class="additional-info">
+            <p>💕 Pro Tip: Names are just the beginning. Let love blossom through understanding, trust, and kindness! 💕</p>
+            <p>💡 Did you know? Love has no bounds. Your score is just for fun, so cherish every moment! 💡</p>
+        </div>
+    </div>
+
+    <script>
+        function calculateLove() {
+            const yourName = document.getElementById('yourName').value.trim();
+            const partnerName = document.getElementById('partnerName').value.trim();
+            const output = document.getElementById('output');
+            const sweetMessage = document.getElementById('sweetMessage');
+            const gifContainer = document.getElementById('gifContainer');
+            const loveGif = document.getElementById('loveGif');
+
+            if (yourName === "" || partnerName === "") {
+                alert("Please enter both names!");
+                return;
+            }
+
+            const combinedNames = yourName.toLowerCase() + partnerName.toLowerCase();
+            let loveScore = 0;
+
+            for (let i = 0; i < combinedNames.length; i++) {
+                loveScore += combinedNames.charCodeAt(i);
+            }
+
+            loveScore = (loveScore % 101).toFixed(2); // Modulus to get a percentage
+
+            const gifs = {
+    0: "https://media.giphy.com/media/d2jjuAZzDSVLZ5kI/giphy.gif", // Completely opposite
+    10: "https://media.giphy.com/media/1dIo1CpBTRrLClx9/giphy.gif", // Hardly any match
+    20: "https://media.giphy.com/media/3oEjHCWdU7F4McmZba/giphy.gif", // Low compatibility
+    30: "https://media.giphy.com/media/l0Iy2mN9lwwyNEMRW/giphy.gif", // Progress is needed
+    40: "https://media.giphy.com/media/3o6nV0mJdNHjSgGLTq/giphy.gif", // Almost halfway
+    50: "https://media.giphy.com/media/xUPGcmlFvESX9uZSZq/giphy.gif", // Balanced match
+    60: "https://media.giphy.com/media/3og0IMJcSI8p6hYQXS/giphy.gif", // Positive growth
+    70: "https://media.giphy.com/media/l41K4xgFUa8aogvG4/giphy.gif", // Strong compatibility
+    80: "https://media.giphy.com/media/xT9IgIc0lryrxvqVGM/giphy.gif", // Solid connection
+    90: "https://media.giphy.com/media/3o6ZsYm5fFlaRffhg0/giphy.gif", // Near perfect
+    100: "https://media.giphy.com/media/26AHONQ79FdWZhAI0/giphy.gif" // Absolute perfect match
+};
+
+
+            output.style.display = "block";
+            output.textContent = `Your Love Score is ${loveScore}%`;
+
+            const gifIndex = loveScore > 90 ? 100 : Math.floor(loveScore / 10) * 10;
+            gifContainer.style.display = "block";
+            loveGif.src = gifs[gifIndex];
+
+            if (loveScore > 50) {
+                sweetMessage.style.display = "block";
+                sweetMessage.textContent = `${yourName} and ${partnerName}, you are a perfect match! 💖✨`;
+                document.body.style.background = "linear-gradient(to bottom right, #ff9a8b, #ff6a88)";
+            } else {
+                sweetMessage.style.display = "block";
+                sweetMessage.textContent = `${yourName} and ${partnerName}, there's always room for growth! 💕`;
+                document.body.style.background = "linear-gradient(to bottom right, #ff7eb3, #ff758c)";
+            }
+        }
+    </script>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <footer>
+    <h3>Created by Rajkumar Ahirwar</h3>
+</footer>
+</body>
+</html>
